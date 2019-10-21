@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ 
 
 package cn.lhfei.jaxb;
 
@@ -35,13 +35,13 @@ import uri.oozie.workflow._1.END;
 import uri.oozie.workflow._1.START;
 import uri.oozie.workflow._1.WORKFLOWAPP;
 
-/**
+*//**
  * @version 0.1
  *
  * @author Hefei Li
  *
  * @Created Jan 04, 2019
- */
+ *//*
 public class WorkFlowAppTest {
 	Logger LOG = LoggerFactory.getLogger(WorkFlowAppTest.class);
 
@@ -103,3 +103,4 @@ public class WorkFlowAppTest {
 		
 	}
 }
+*/

@@ -20,6 +20,7 @@
 		
 		<lifecycle-mapping-plugin.version>1.0.0</lifecycle-mapping-plugin.version>
 		<jaxb2.output.dir>src/main/generated-sources</jaxb2.output.dir>
+		<xmlbeans.output.dir>src/main/xmlbeans-generated-sources</xmlbeans.output.dir>
 		
 	</properties>
 
@@ -69,12 +70,32 @@
 			<artifactId>jaxb-core</artifactId>
 			<version>2.3.0.1</version>
 		</dependency>
+
+		<!-- 
+		 	#### XMLBeans Dependencies ####
+		 -->
+		<dependency>
+			<groupId>xml-resolver</groupId>
+			<artifactId>xml-resolver</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.xmlbeans</groupId>
+		    <artifactId>xmlbeans</artifactId>
+		    <version>3.0.2</version>
+		</dependency>
 		
-<dependency>
-    <groupId>javax.xml.parsers</groupId>
-    <artifactId>jaxp-api</artifactId>
-    <version>1.4.5</version>
-</dependency>		
+		<dependency>
+		    <groupId>javax.xml.parsers</groupId>
+		    <artifactId>jaxp-api</artifactId>
+		    <version>1.4.5</version>
+		</dependency>
+		
+		<!-- <dependency>
+		    <groupId>xerces</groupId>
+		    <artifactId>xerces</artifactId>
+		    <version>2.0.2</version>
+		</dependency> -->	
 		
 		
 	</dependencies>
@@ -92,7 +113,7 @@
 	</dependencyManagement>
 
 	<build>
-		<pluginManagement>
+		<!-- <pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -120,10 +141,10 @@
 					</configuration>
 				</plugin>
 			</plugins>
-		</pluginManagement>
+		</pluginManagement> -->
 	
 		<plugins>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
@@ -145,46 +166,8 @@
                 	<addGeneratedAnnotation>false</addGeneratedAnnotation>
                 	<locale>ENGLISH</locale>
                 </configuration>
-            </plugin>
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>                      
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="${jaxb2.output.dir}"/>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-			</plugin> -->
-			<!-- <plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>xjc</executable>
-                    <arguments>
-                        <argument>-p</argument>
-                        <argument>some.package</argument>
-                        <argument>-d</argument>
-                        <argument>target/generated-sources</argument>
-                        <argument>src/main/xsd/user.xsd</argument>
-                    </arguments>
-                </configuration>
-			</plugin> -->
+            </plugin> -->
+			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -196,16 +179,30 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${jaxb2.output.dir}</source>
+                                <!-- <source>${jaxb2.output.dir}</source> -->
+                                <source>${xmlbeans.output.dir}</source>
                             </sources>
                         </configuration>
                     </execution>
                 </executions>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>xmlbeans-maven-plugin</artifactId>
 				<version>2.3.3</version>
+				<executions>
+                    <execution>
+                        <id>xmlbeans</id>
+                        <goals>
+                            <goal>xmlbeans</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                	<schemaDirectory>src/main/xsd</schemaDirectory>
+                	<sourceGenerationDirectory>${xmlbeans.output.dir}</sourceGenerationDirectory>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>
